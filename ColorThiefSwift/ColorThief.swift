@@ -29,7 +29,7 @@ public class ColorThief {
     ///
     /// - Parameters:
     ///   - sourceImage: the source image
-    ///   - quality: 0 is the highest quality settings. 10 is the default. There is
+    ///   - quality: 1 is the highest quality settings. 10 is the default. There is
     ///              a trade-off between quality and speed. The bigger the number,
     ///              the faster a color will be returned but the greater the
     ///              likelihood that it will not be the visually most dominant
@@ -47,7 +47,7 @@ public class ColorThief {
     /// - Parameters:
     ///   - sourceImage: the source image
     ///   - colorCount: the size of the palette; the number of colors returned
-    ///   - quality: 0 is the highest quality settings. 10 is the default. There is
+    ///   - quality: 1 is the highest quality settings. 10 is the default. There is
     ///              a trade-off between quality and speed. The bigger the number,
     ///              the faster the palette generation but the greater the
     ///              likelihood that colors will be missed.
@@ -63,7 +63,7 @@ public class ColorThief {
     /// - Parameters:
     ///   - sourceImage: the source image
     ///   - colorCount: the size of the palette; the number of colors returned
-    ///   - quality: 0 is the highest quality settings. 10 is the default. There is
+    ///   - quality: 1 is the highest quality settings. 10 is the default. There is
     ///              a trade-off between quality and speed. The bigger the number,
     ///              the faster the palette generation but the greater the
     ///              likelihood that colors will be missed.

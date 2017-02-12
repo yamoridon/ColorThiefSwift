@@ -31,7 +31,7 @@ s.screenshots     = 'https://github.com/orchely/ColorThiefSwift/raw/master/scree
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'ColorThiefSwift/Classes/**/*'
+  s.source_files = 'ColorThiefSwift/Classes/*.swift'
   
   # s.resource_bundles = {
   #   'ColorThiefSwift' => ['ColorThiefSwift/Assets/*.png']

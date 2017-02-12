@@ -4,4 +4,7 @@
    <FileRef
       location = "group:ColorThiefSwift.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

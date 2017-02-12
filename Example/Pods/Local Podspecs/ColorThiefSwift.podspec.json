@@ -1,0 +1,22 @@
+{
+  "name": "ColorThiefSwift",
+  "version": "0.1.0",
+  "summary": "A short description of ColorThiefSwift.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/kazuki.ohara@gmail.com/ColorThiefSwift",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "kazuki.ohara@gmail.com": "kazuki.ohara@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/kazuki.ohara@gmail.com/ColorThiefSwift.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "ColorThiefSwift/Classes/**/*"
+}

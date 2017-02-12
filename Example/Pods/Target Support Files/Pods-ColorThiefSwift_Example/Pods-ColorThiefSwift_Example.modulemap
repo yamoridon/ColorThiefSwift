@@ -1,0 +1,6 @@
+framework module Pods_ColorThiefSwift_Example {
+  umbrella header "Pods-ColorThiefSwift_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

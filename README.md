@@ -8,6 +8,12 @@ Swift 3 version will be available soon.
 
 ![screen shot](https://github.com/orchely/ColorThiefSwift/blob/master/screenshot.png?raw=true "screen shot")
 
+# TODO
+
+- [ ] Support CocoaPods
+- [ ] Support Carthage
+- [ ] Support Swift 3
+
 # Thanks
 
 - Sven Woltmann - for the Java Implementation. ColorThiefSwift is a port of this.

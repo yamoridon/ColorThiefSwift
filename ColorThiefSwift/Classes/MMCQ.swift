@@ -453,7 +453,9 @@ public class MMCQ {
             return aVolume < bVolume
         } else {
             // Otherwise sort by products
-            return aCount * aVolume < bCount * bVolume
+            let aProduct = Int64(aCount) * Int64(aVolume)
+            let bProduct = Int64(bCount) * Int64(bVolume)
+            return aProduct < bProduct
         }
     }
 

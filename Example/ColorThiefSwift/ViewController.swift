@@ -60,7 +60,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     if i < colors.count {
                         let color = colors[i]
                         self?.paletteViews[i].backgroundColor = color.toUIColor()
-                        self?.paletteLabels[i].text = "getPallete[\(i)] R\(color.r) G\(color.g) B\(color.b)"
+                        self?.paletteLabels[i].text = "getPalette[\(i)] R\(color.r) G\(color.g) B\(color.b)"
                     } else {
                         self?.paletteViews[i].backgroundColor = UIColor.whiteColor()
                         self?.paletteLabels[i].text = "-"

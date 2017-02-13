@@ -224,9 +224,6 @@ public class MMCQ {
         var bMax = UInt8.min
 
         let pixelCount = pixels.count / 4
-        // numRegardedPixels must be rounded up to avoid an
-        // out of bound exception if all pixels are good.
-        let numRegardedPixels = (pixelCount + quality - 1) / quality
         for i in 0.stride(to: pixelCount, by: quality) {
             let r = pixels[i * 4 + 0]
             let g = pixels[i * 4 + 1]

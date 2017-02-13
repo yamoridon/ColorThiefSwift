@@ -1,3 +1,9 @@
+## 0.1.2 (2017-2-14)
+
+#### Bug Fixes
+
+* fix a warning.
+
 ## 0.1.1 (2017-2-14)
 
 #### Enhancements

@@ -70,9 +70,8 @@ public class ColorThief {
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the color map
     public static func getColorMapFromImage(sourceImage: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.ColorMap? {
-        guard let byteArray = getByteArrayFromImage(sourceImage) else { return nil }
-        let pixels = getPixelsFromByteArray(byteArray, quality: quality, ignoreWhite: ignoreWhite)
-        let colorMap = MMCQ.quantizePixels(pixels, maxColors: colorCount)
+        guard let pixels = getByteArrayFromImage(sourceImage) else { return nil }
+        let colorMap = MMCQ.quantizePixels(pixels, quality: quality, ignoreWhite: ignoreWhite, maxColors: colorCount)
         return colorMap
     }
 
@@ -84,37 +83,6 @@ public class ColorThief {
         var rawData = [UInt8](count: length, repeatedValue: 0)
         CFDataGetBytes(data, CFRange(location: 0, length: length), &rawData)
         return rawData
-    }
-
-    static func getPixelsFromByteArray(byteArray: [UInt8], quality: Int, ignoreWhite: Bool) -> [UInt8] {
-        let pixelCount = byteArray.count / 4
-
-        // numRegardedPixels must be rounded up to avoid an
-        // out of bound exception if all pixels are good.
-        let numRegardedPixels = (pixelCount + quality - 1) / quality
-        var numUsedPixels = 0
-        var pixels = [UInt8](count: numRegardedPixels * 4, repeatedValue: 0)
-        for i in 0.stride(to: pixelCount, by: quality) {
-            let r = byteArray[i * 4 + 0]
-            let g = byteArray[i * 4 + 1]
-            let b = byteArray[i * 4 + 2]
-            let a = byteArray[i * 4 + 3]
-
-            // If pixel is mostly opaque and not white
-            if a >= 125 && !(ignoreWhite && r > 250 && g > 250 && b > 250) {
-                pixels[numUsedPixels * 4 + 0] = r
-                pixels[numUsedPixels * 4 + 1] = g
-                pixels[numUsedPixels * 4 + 2] = b
-                numUsedPixels += 1
-            }
-        }
-
-        if numUsedPixels == numRegardedPixels {
-            return pixels
-        } else {
-            // Remove unused pixels from the array
-            return Array(pixels.prefix(numUsedPixels * 4))
-        }
     }
 
 }

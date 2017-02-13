@@ -214,19 +214,8 @@ public class MMCQ {
     }
 
     /// Histo (1-d array, giving the number of pixels in each quantized region of color space), or null on error.
-    private static func getHistogramOfPixels(pixels: [UInt8]) -> [Int] {
+    private static func getHistogramAndVBoxFromPixels(pixels: [UInt8], quality: Int, ignoreWhite: Bool) -> ([Int], VBox) {
         var histogram = [Int](count: HistogramSize, repeatedValue: 0)
-        for i in 0.stride(to: pixels.count, by: 4) {
-            let r = pixels[i + 0] >> UInt8(RightShift)
-            let g = pixels[i + 1] >> UInt8(RightShift)
-            let b = pixels[i + 2] >> UInt8(RightShift)
-            let index = MMCQ.getColorIndexOfRed(Int(r), green: Int(g), blue: Int(b))
-            histogram[index] += 1
-        }
-        return histogram
-    }
-
-    private static func vboxFromPixels(pixels: [UInt8], histogram: [Int]) -> VBox {
         var rMin = UInt8.max
         var rMax = UInt8.min
         var gMin = UInt8.max
@@ -234,20 +223,40 @@ public class MMCQ {
         var bMin = UInt8.max
         var bMax = UInt8.min
 
-        // find min/max
-        for i in 0.stride(to: pixels.count, by: 4) {
-            let r = pixels[i + 0] >> UInt8(RightShift)
-            let g = pixels[i + 1] >> UInt8(RightShift)
-            let b = pixels[i + 2] >> UInt8(RightShift)
-            rMin = min(rMin, r)
-            rMax = max(rMax, r)
-            gMin = min(gMin, g)
-            gMax = max(gMax, g)
-            bMin = min(bMin, b)
-            bMax = max(bMax, b)
+        let pixelCount = pixels.count / 4
+        // numRegardedPixels must be rounded up to avoid an
+        // out of bound exception if all pixels are good.
+        let numRegardedPixels = (pixelCount + quality - 1) / quality
+        for i in 0.stride(to: pixelCount, by: quality) {
+            let r = pixels[i * 4 + 0]
+            let g = pixels[i * 4 + 1]
+            let b = pixels[i * 4 + 2]
+            let a = pixels[i * 4 + 3]
+
+            // If pixel is not mostly opaque or white
+            guard a >= 125 && !(ignoreWhite && r > 250 && g > 250 && b > 250) else {
+                continue
+            }
+
+            let shiftedR = r >> UInt8(RightShift)
+            let shiftedG = g >> UInt8(RightShift)
+            let shiftedB = b >> UInt8(RightShift)
+
+            // find min/max
+            rMin = min(rMin, shiftedR)
+            rMax = max(rMax, shiftedR)
+            gMin = min(gMin, shiftedG)
+            gMax = max(gMax, shiftedG)
+            bMin = min(bMin, shiftedB)
+            bMax = max(bMax, shiftedB)
+
+            // increment histgram
+            let index = MMCQ.getColorIndexOfRed(Int(shiftedR), green: Int(shiftedG), blue: Int(shiftedB))
+            histogram[index] += 1
         }
 
-        return VBox(rMin: rMin, rMax: rMax, gMin: gMin, gMax: gMax, bMin: bMin, bMax: bMax, histogram: histogram)
+        let vbox = VBox(rMin: rMin, rMax: rMax, gMin: gMin, gMax: gMax, bMin: bMin, bMax: bMax, histogram: histogram)
+        return (histogram, vbox)
     }
 
     private static func medianCutApplyWithHistogram(histogram: [Int], vbox: VBox) -> [VBox?]? {
@@ -368,27 +377,27 @@ public class MMCQ {
         fatalError("VBox can't be cut")
     }
 
-    static func quantizePixels(pixels: [UInt8], maxColors: Int) -> ColorMap? {
+    static func quantizePixels(pixels: [UInt8], quality: Int, ignoreWhite: Bool, maxColors: Int) -> ColorMap? {
         // short-circuit
         guard pixels.count != 0 && maxColors > 1 && maxColors <= 256 else { return nil }
 
-        let histogram = getHistogramOfPixels(pixels)
+        // get the histogram and the beginning vbox from the colors
+        let (histogram, vbox) = getHistogramAndVBoxFromPixels(pixels, quality: quality, ignoreWhite: ignoreWhite)
 
-        // get the beginning vbox from the colors
-        let vbox = vboxFromPixels(pixels, histogram: histogram)
-        var pq = [vbox] // priority queue
+        // priority queue
+        var pq = [vbox]
 
         // Round up to have the same behaviour as in JavaScript
         let target = Int(ceil(FractionByPopulation * Double(maxColors)))
 
         // first set of colors, sorted by population
-        iterateOnQueue(&pq, comparator: compareByCount, target: target, histogram: histogram)
+        iterateOverQueue(&pq, comparator: compareByCount, target: target, histogram: histogram)
 
         // Re-sort by the product of pixel occupancy times the size in color space.
         pq.sortInPlace(compareByProduct)
 
         // next set - generate the median cuts using the (npix * vol) sorting.
-        iterateOnQueue(&pq, comparator: compareByProduct, target: maxColors - pq.count, histogram: histogram)
+        iterateOverQueue(&pq, comparator: compareByProduct, target: maxColors - pq.count, histogram: histogram)
 
         // Reverse to put the highest elements first into the color map
         pq = pq.reverse()
@@ -400,7 +409,7 @@ public class MMCQ {
     }
 
     // Inner function to do the iteration.
-    private static func iterateOnQueue(inout queue: [VBox], comparator: (VBox, VBox) -> Bool, target: Int, histogram: [Int]) {
+    private static func iterateOverQueue(inout queue: [VBox], comparator: (VBox, VBox) -> Bool, target: Int, histogram: [Int]) {
         var color = 1
         var iteration = 0
 

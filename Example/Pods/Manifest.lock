@@ -1,5 +1,5 @@
 PODS:
-  - ColorThiefSwift (0.1.0)
+  - ColorThiefSwift (0.1.2)
 
 DEPENDENCIES:
   - ColorThiefSwift (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ColorThiefSwift: abe26f436c16e4baa0565d6cc0ecdb47fdcb659b
+  ColorThiefSwift: 616dd20860ce7ce047c35fdbb59443c2212d7c0f
 
-PODFILE CHECKSUM: 7fa47ad634823cc69f503743ed5c23bd5071f4a9
+PODFILE CHECKSUM: e43dced23054baaaff06ef36a813c503d9ae3414
 
 COCOAPODS: 1.2.0

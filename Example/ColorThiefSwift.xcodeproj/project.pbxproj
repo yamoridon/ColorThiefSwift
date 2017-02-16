@@ -15,6 +15,8 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		66D31A111E54B1070042F3B5 /* pen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66D31A101E54B1070042F3B5 /* pen.jpg */; };
+		66D31A121E54B11A0042F3B5 /* pen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 66D31A101E54B1070042F3B5 /* pen.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,8 @@
 		607FACE51AFB9204008FA782 /* ColorThiefSwift_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorThiefSwift_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		66D31A101E54B1070042F3B5 /* pen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pen.jpg; sourceTree = "<group>"; };
+		66D31A171E54B2C30042F3B5 /* ColorThiefSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ColorThiefSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/ColorThiefSwift-dsbaqeooafvpbefmtgkvyxbmcsde/Build/Products/Debug-iphonesimulator/ColorThiefSwift/ColorThiefSwift.framework"; sourceTree = "<group>"; };
 		A33FA9365D9DD6934827F438 /* Pods-ColorThiefSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorThiefSwift_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColorThiefSwift_Tests/Pods-ColorThiefSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		A791C14D802A1BD69E4FE804 /* Pods-ColorThiefSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorThiefSwift_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorThiefSwift_Tests/Pods-ColorThiefSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C06F645DB89515DA0C7E4869 /* ColorThiefSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ColorThiefSwift.podspec; path = ../ColorThiefSwift.podspec; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				66D31A101E54B1070042F3B5 /* pen.jpg */,
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -142,6 +147,7 @@
 		9AD656967BB78511A4603AEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66D31A171E54B2C30042F3B5 /* ColorThiefSwift.framework */,
 				4AF42355B8EBE7DCB258A26C /* Pods_ColorThiefSwift_Example.framework */,
 				D26F368A98926FE292986C36 /* Pods_ColorThiefSwift_Tests.framework */,
 			);
@@ -247,6 +253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				66D31A111E54B1070042F3B5 /* pen.jpg in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -256,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66D31A121E54B11A0042F3B5 /* pen.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

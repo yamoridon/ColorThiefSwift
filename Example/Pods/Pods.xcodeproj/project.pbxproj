@@ -40,14 +40,14 @@
 
 /* Begin PBXFileReference section */
 		07250796F9C735A6EC2E6FEF5FE44235 /* Pods-ColorThiefSwift_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ColorThiefSwift_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
-		0C821E372BA857E36313490A38CB3CCA /* Pods_ColorThiefSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ColorThiefSwift_Tests.framework; path = "Pods-ColorThiefSwift_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C821E372BA857E36313490A38CB3CCA /* Pods_ColorThiefSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorThiefSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1873ABC1FA373831DB1A152EB6397772 /* Pods-ColorThiefSwift_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ColorThiefSwift_Tests-umbrella.h"; sourceTree = "<group>"; };
 		1EB13D157F220ED9289D72FCA0719896 /* ColorThiefSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ColorThiefSwift-umbrella.h"; sourceTree = "<group>"; };
 		2E8D873CE8DA35DF85803C2D2AB8B673 /* Pods-ColorThiefSwift_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ColorThiefSwift_Example-dummy.m"; sourceTree = "<group>"; };
-		3050CE909DAC13B6F8B1FBE51B74E138 /* Pods_ColorThiefSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_ColorThiefSwift_Example.framework; path = "Pods-ColorThiefSwift_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3050CE909DAC13B6F8B1FBE51B74E138 /* Pods_ColorThiefSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorThiefSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		340880418E3823BA357B4FD51BDD6EC0 /* Pods-ColorThiefSwift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ColorThiefSwift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		423F06370C43BBBAC49B18B0DF9E2F0F /* Pods-ColorThiefSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ColorThiefSwift_Example.modulemap"; sourceTree = "<group>"; };
-		434240C3F11CC7F6FF3C03368CAC7273 /* ColorThiefSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ColorThiefSwift.modulemap; sourceTree = "<group>"; };
+		423F06370C43BBBAC49B18B0DF9E2F0F /* Pods-ColorThiefSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ColorThiefSwift_Example.modulemap"; sourceTree = "<group>"; };
+		434240C3F11CC7F6FF3C03368CAC7273 /* ColorThiefSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = ColorThiefSwift.modulemap; sourceTree = "<group>"; };
 		5055C5380A2CB58DAE2D2A66D1FB4E2E /* Pods-ColorThiefSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ColorThiefSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		523DA9DA482174335054BBC937331DDF /* Pods-ColorThiefSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ColorThiefSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		5D9CFC79A742FCC29AF0B76F00BE50FB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -59,17 +59,17 @@
 		7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		88ACD16320CCA25F1408E7FB550AE417 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92382A4AA6D9E765C72D6E57BC7E004E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		96B9E8E18572BECCC0EE236BEF05CE87 /* Pods-ColorThiefSwift_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ColorThiefSwift_Tests-frameworks.sh"; sourceTree = "<group>"; };
 		A5B4CB32E8E675A916318FC27FD8F4E8 /* ColorThiefSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ColorThiefSwift-dummy.m"; sourceTree = "<group>"; };
 		AB3FB24A7F37990FDE013F07AD9E47AE /* Pods-ColorThiefSwift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ColorThiefSwift_Example-umbrella.h"; sourceTree = "<group>"; };
 		BA6DC4BD6D3F417F9B9C3FA268B3B271 /* ColorThiefSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ColorThiefSwift-prefix.pch"; sourceTree = "<group>"; };
 		BB268B6EDD8E76CCC5FA4CC0E736B85E /* Pods-ColorThiefSwift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ColorThiefSwift_Example-frameworks.sh"; sourceTree = "<group>"; };
-		C557F697CD709622E885DFB3C82CC607 /* MMCQ.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MMCQ.swift; sourceTree = "<group>"; };
+		C557F697CD709622E885DFB3C82CC607 /* MMCQ.swift */ = {isa = PBXFileReference; includeInIndex = 1; indentWidth = 5; lastKnownFileType = sourcecode.swift; path = MMCQ.swift; sourceTree = "<group>"; };
 		CC5334C1CDFCE73C987741DA6E1430E8 /* Pods-ColorThiefSwift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ColorThiefSwift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		DF08715F105DDF1891128DE1C90D9B70 /* Pods-ColorThiefSwift_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ColorThiefSwift_Tests-resources.sh"; sourceTree = "<group>"; };
-		E6585D93D22C7F79CBCBE66852A26D11 /* Pods-ColorThiefSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-ColorThiefSwift_Tests.modulemap"; sourceTree = "<group>"; };
-		EDEFCC496F135ACB0AF260B694F60C38 /* ColorThiefSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ColorThiefSwift.framework; path = ColorThiefSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6585D93D22C7F79CBCBE66852A26D11 /* Pods-ColorThiefSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ColorThiefSwift_Tests.modulemap"; sourceTree = "<group>"; };
+		EDEFCC496F135ACB0AF260B694F60C38 /* ColorThiefSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ColorThiefSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE2826E1140D7556AC124CFEBACB2298 /* Pods-ColorThiefSwift_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ColorThiefSwift_Example-resources.sh"; sourceTree = "<group>"; };
 		F54C47C1EFD6C9FE1C3909FE1BB1E90D /* Pods-ColorThiefSwift_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ColorThiefSwift_Tests-dummy.m"; sourceTree = "<group>"; };
 		FDEDB98E64D6BC6364FACCDB92A44C6C /* Pods-ColorThiefSwift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ColorThiefSwift_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,7 +145,6 @@
 				77D233E605E8B61450B8815CC98B636C /* ColorThief.swift */,
 				C557F697CD709622E885DFB3C82CC607 /* MMCQ.swift */,
 			);
-			name = Classes;
 			path = Classes;
 			sourceTree = "<group>";
 		};
@@ -199,7 +198,6 @@
 			children = (
 				683C778A593C8F6E34B74C99EA8DDC93 /* Classes */,
 			);
-			name = ColorThiefSwift;
 			path = ColorThiefSwift;
 			sourceTree = "<group>";
 		};

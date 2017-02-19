@@ -19,8 +19,8 @@
 
 import Foundation
 
-// MMCQ (modified median cut quantization) algorithm from
-// the Leptonica library (http://www.leptonica.com/).
+/// MMCQ (modified median cut quantization) algorithm from
+/// the Leptonica library (http://www.leptonica.com/).
 public class MMCQ {
 
     // Use only upper 5 bits of 8 bits
@@ -91,15 +91,28 @@ public class MMCQ {
             self.histogram = histogram
         }
 
+        init(vbox: VBox) {
+            self.rMin = vbox.rMin
+            self.rMax = vbox.rMax
+            self.gMin = vbox.gMin
+            self.gMax = vbox.gMax
+            self.bMin = vbox.bMin
+            self.bMax = vbox.bMax
+            self.histogram = vbox.histogram
+        }
+
         /// Get 3 dimensional volume of the color space
         ///
         /// - Parameter force: force recalculate
         /// - Returns: the volume
         func getVolume(forceRecalculate force: Bool = false) -> Int {
-            if volume == nil || force {
-                volume = (Int(rMax) - Int(rMin) + 1) * (Int(gMax) - Int(gMin) + 1) * (Int(bMax) - Int(bMin) + 1)
+            if let volume = volume where !force {
+               return volume
+            } else {
+               let volume = (Int(rMax) - Int(rMin) + 1) * (Int(gMax) - Int(gMin) + 1) * (Int(bMax) - Int(bMin) + 1)
+               self.volume = volume
+               return volume
             }
-            return volume!
         }
 
         /// Get total count of histogram samples
@@ -107,28 +120,27 @@ public class MMCQ {
         /// - Parameter force: force recalculate
         /// - Returns: the volume
         func getCount(forceRecalculate force: Bool = false) -> Int {
-            if count == nil || force {
-                var npix = 0
+            if let count = count where !force {
+                return count
+            } else {
+                var count = 0
                 for i in Int(rMin) ... Int(rMax) {
                     for j in Int(gMin) ... Int(gMax) {
                         for k in Int(bMin) ... Int(bMax) {
                             let index = MMCQ.getColorIndexOfRed(i, green: j, blue: k)
-                            npix += histogram[index]
+                            count += histogram[index]
                         }
                     }
                 }
-                count = npix
+                self.count = count
+                return count
             }
-
-            return count!
-        }
-
-        func clone() -> VBox {
-            return VBox(rMin: rMin, rMax: rMax, gMin: gMin, gMax: gMax, bMin: bMin, bMax: bMax, histogram: histogram)
         }
 
         func getAverage(forceRecalculate force: Bool = false) -> Color {
-            if average == nil || force {
+            if let average = average where !force {
+                return average
+            } else {
                 var ntot = 0
 
                 var rSum = 0
@@ -148,6 +160,7 @@ public class MMCQ {
                     }
                 }
 
+                let average: Color
                 if ntot > 0 {
                     let r = UInt8(rSum / ntot)
                     let g = UInt8(gSum / ntot)
@@ -159,21 +172,22 @@ public class MMCQ {
                     let b = UInt8(MMCQ.Multiplier * (Int(bMin) + Int(bMax) + 1) / 2)
                     average = Color(r: r, g: g, b: b)
                 }
-            }
 
-            return average!
+                self.average = average
+                return average
+            }
         }
 
         func widestColorChannel() -> ColorChannel {
             let rWidth = rMax - rMin
             let gWidth = gMax - gMin
             let bWidth = bMax - bMin
-            let maxWidth = max(rWidth, gWidth, bWidth)
-            if maxWidth == rWidth {
+            switch max(rWidth, gWidth, bWidth) {
+            case rWidth:
                 return .r
-            } else if maxWidth == gWidth {
+            case gWidth:
                 return .g
-            } else {
+            default:
                 return .b
             }
         }
@@ -194,15 +208,15 @@ public class MMCQ {
         }
 
         public func nearest(color color: Color) -> Color {
-            var nearestDistance = DBL_MAX
+            var nearestDistance = Int.max
             var nearestColor = Color(r: 0, g: 0, b: 0)
 
             for vbox in vboxes {
                 let vbColor = vbox.getAverage()
-                let r2 = pow(Double(color.r - vbColor.r), 2.0)
-                let g2 = pow(Double(color.g - vbColor.g), 2.0)
-                let b2 = pow(Double(color.b - vbColor.b), 2.0)
-                let distance = sqrt(r2 + g2 + b2)
+                let dr = abs(Int(color.r) - Int(vbColor.r))
+                let dg = abs(Int(color.g) - Int(vbColor.g))
+                let db = abs(Int(color.b) - Int(vbColor.b))
+                let distance = dr + dg + db
                 if distance < nearestDistance {
                     nearestDistance = distance
                     nearestColor = vbColor
@@ -256,10 +270,15 @@ public class MMCQ {
         return (histogram, vbox)
     }
 
-    private static func medianCutApplyWithHistogram(histogram: [Int], vbox: VBox) -> [VBox?]? {
-        guard vbox.getCount() != 0 else { return nil }
+    private static func medianCutApplyWithHistogram(histogram: [Int], vbox: VBox) -> [VBox] {
+        guard vbox.getCount() != 0 else {
+            return []
+        }
+
         // only one pixel, no split
-        guard vbox.getCount() != 1 else { return [vbox.clone(), nil] }
+        guard vbox.getCount() != 1 else {
+            return [vbox]
+        }
 
         // Find the partial sum arrays along the selected axis.
         var total = 0
@@ -306,14 +325,14 @@ public class MMCQ {
         }
 
         var lookAheadSum = [Int](count: VBoxLength, repeatedValue: -1) // -1 = not set / 0 = 0
-        for i in 0 ..< VBoxLength where partialSum[i] != -1 {
-            lookAheadSum[i] = total - partialSum[i]
+        for (i, sum) in partialSum.enumerate() where sum != -1 {
+            lookAheadSum[i] = total - sum
         }
 
         return doCutByAxis(axis, vbox: vbox, partialSum: partialSum, lookAheadSum: lookAheadSum, total: total)
     }
 
-    private static func doCutByAxis(axis: ColorChannel, vbox: VBox, partialSum: [Int], lookAheadSum: [Int], total: Int) -> [VBox?] {
+    private static func doCutByAxis(axis: ColorChannel, vbox: VBox, partialSum: [Int], lookAheadSum: [Int], total: Int) -> [VBox] {
         let vboxMin: UInt8
         let vboxMax: UInt8
 
@@ -330,8 +349,8 @@ public class MMCQ {
         }
 
         for i in vboxMin ... vboxMax where partialSum[Int(i)] > total / 2 {
-            let vbox1 = vbox.clone()
-            let vbox2 = vbox.clone()
+            let vbox1 = VBox(vbox: vbox)
+            let vbox2 = VBox(vbox: vbox)
 
             let left = i - vboxMin
             let right = vboxMax - i
@@ -376,7 +395,9 @@ public class MMCQ {
 
     static func quantizePixels(pixels: [UInt8], quality: Int, ignoreWhite: Bool, maxColors: Int) -> ColorMap? {
         // short-circuit
-        guard pixels.count != 0 && maxColors > 1 && maxColors <= 256 else { return nil }
+        guard !pixels.isEmpty && maxColors > 1 && maxColors <= 256 else {
+            return nil
+        }
 
         // get the histogram and the beginning vbox from the colors
         let (histogram, vbox) = getHistogramAndVBoxFromPixels(pixels, quality: quality, ignoreWhite: ignoreWhite)
@@ -408,39 +429,30 @@ public class MMCQ {
     // Inner function to do the iteration.
     private static func iterateOverQueue(inout queue: [VBox], comparator: (VBox, VBox) -> Bool, target: Int, histogram: [Int]) {
         var color = 1
-        var iteration = 0
 
-        while iteration < MaxIterations {
-            let vbox = queue.last!
+        for _ in 0 ..< MaxIterations {
+            guard let vbox = queue.last else {
+                return
+            }
+
             if vbox.getCount() == 0 {
                 queue.sortInPlace(comparator)
-                iteration += 1
                 continue
             }
             queue.removeLast()
 
             // do the cut
             let vboxes = medianCutApplyWithHistogram(histogram, vbox: vbox)
-            let vbox1: VBox! = vboxes?[0]
-            let vbox2: VBox! = vboxes?[1]
-            if vbox1 == nil {
-                fatalError("vbox1 not defined; shouldn't happen!")
-            }
-            queue.append(vbox1)
-
-            if vbox2 != nil {
-                queue.append(vbox2)
+            queue.append(vboxes[0])
+            if vboxes.count == 2 {
+                queue.append(vboxes[1])
                 color += 1
             }
             queue.sortInPlace(comparator)
 
             if color >= target {
-                return
+               return
             }
-            if iteration > MaxIterations {
-                return
-            }
-            iteration += 1
         }
     }
 

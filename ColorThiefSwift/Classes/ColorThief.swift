@@ -37,7 +37,9 @@ public class ColorThief {
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the dominant color
     public static func getColorFromImage(sourceImage: UIImage, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.Color? {
-        guard let palette = getPaletteFromImage(sourceImage, colorCount: 5, quality: quality, ignoreWhite: ignoreWhite) else { return nil }
+        guard let palette = getPaletteFromImage(sourceImage, colorCount: 5, quality: quality, ignoreWhite: ignoreWhite) else {
+            return nil
+        }
         let dominantColor = palette[0]
         return dominantColor
     }
@@ -54,7 +56,9 @@ public class ColorThief {
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the palette
     public static func getPaletteFromImage(sourceImage: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> [MMCQ.Color]? {
-        guard let colorMap = getColorMapFromImage(sourceImage, colorCount: colorCount, quality: quality, ignoreWhite: ignoreWhite) else { return nil }
+        guard let colorMap = getColorMapFromImage(sourceImage, colorCount: colorCount, quality: quality, ignoreWhite: ignoreWhite) else {
+            return nil
+        }
         return colorMap.palette()
     }
 
@@ -70,15 +74,23 @@ public class ColorThief {
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the color map
     public static func getColorMapFromImage(sourceImage: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.ColorMap? {
-        guard let pixels = getByteArrayFromImage(sourceImage) else { return nil }
+        guard let pixels = getByteArrayFromImage(sourceImage) else {
+            return nil
+        }
         let colorMap = MMCQ.quantizePixels(pixels, quality: quality, ignoreWhite: ignoreWhite, maxColors: colorCount)
         return colorMap
     }
 
     static func getByteArrayFromImage(sourceImage: UIImage) -> [UInt8]? {
-        guard let cgImage = sourceImage.CGImage else { return nil }
-        guard let dataProvider = CGImageGetDataProvider(cgImage) else { return nil }
-        guard let data = CGDataProviderCopyData(dataProvider) else { return nil }
+        guard let cgImage = sourceImage.CGImage else {
+            return nil
+        }
+        guard let dataProvider = CGImageGetDataProvider(cgImage) else {
+            return nil
+        }
+        guard let data = CGDataProviderCopyData(dataProvider) else {
+            return nil
+        }
         let length = CFDataGetLength(data)
         var rawData = [UInt8](count: length, repeatedValue: 0)
         CFDataGetBytes(data, CFRange(location: 0, length: length), &rawData)

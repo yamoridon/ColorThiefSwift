@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ColorThiefSwift'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = 'Grabs the dominant color or a representative color palette from an image.'
 
 # This description is used to generate tags and improve search results.
@@ -23,7 +23,7 @@ A Swift port of same name libraries of JavaScript and Java.
                        DESC
 
   s.homepage         = 'https://github.com/orchely/ColorThiefSwift'
-s.screenshots     = 'https://github.com/orchely/ColorThiefSwift/raw/master/screenshot.png'
+  s.screenshots     = 'https://github.com/orchely/ColorThiefSwift/raw/master/screenshot.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Kazuki Ohara' => 'kazuki.ohara@gmail.com' }
   s.source           = { :git => 'https://github.com/orchely/ColorThiefSwift.git', :tag => s.version.to_s }

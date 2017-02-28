@@ -101,6 +101,18 @@ public class MMCQ {
             self.histogram = vbox.histogram
         }
 
+        func makeRange(min min: UInt8, max: UInt8) -> Range<Int> {
+            if min <= max {
+                return Int(min) ... Int(max)
+            } else {
+                return Int(max) ..< Int(max)
+            }
+        }
+
+        var rRange: Range<Int> { return makeRange(min: rMin, max: rMax) }
+        var gRange: Range<Int> { return makeRange(min: gMin, max: gMax) }
+        var bRange: Range<Int> { return makeRange(min: bMin, max: bMax) }
+
         /// Get 3 dimensional volume of the color space
         ///
         /// - Parameter force: force recalculate
@@ -124,9 +136,9 @@ public class MMCQ {
                 return count
             } else {
                 var count = 0
-                for i in Int(rMin) ... Int(rMax) {
-                    for j in Int(gMin) ... Int(gMax) {
-                        for k in Int(bMin) ... Int(bMax) {
+                for i in rRange {
+                    for j in gRange {
+                        for k in bRange {
                             let index = MMCQ.getColorIndexOfRed(i, green: j, blue: k)
                             count += histogram[index]
                         }
@@ -147,9 +159,9 @@ public class MMCQ {
                 var gSum = 0
                 var bSum = 0
 
-                for i in Int(rMin) ... Int(rMax) {
-                    for j in Int(gMin) ... Int(gMax) {
-                        for k in Int(bMin) ... Int(bMax) {
+                for i in rRange {
+                    for j in gRange {
+                        for k in bRange {
                             let index = MMCQ.getColorIndexOfRed(i, green: j, blue: k)
                             let hval = histogram[index]
                             ntot += hval
@@ -287,10 +299,10 @@ public class MMCQ {
         let axis = vbox.widestColorChannel()
         switch axis {
         case .r:
-            for i in Int(vbox.rMin) ... Int(vbox.rMax) {
+            for i in vbox.rRange {
                 var sum = 0
-                for j in Int(vbox.gMin) ... Int(vbox.gMax) {
-                    for k in Int(vbox.bMin) ... Int(vbox.bMax) {
+                for j in vbox.gRange {
+                    for k in vbox.bRange {
                         let index = MMCQ.getColorIndexOfRed(i, green: j, blue: k)
                         sum += histogram[index]
                     }
@@ -299,10 +311,10 @@ public class MMCQ {
                 partialSum[i] = total
             }
         case .g:
-            for i in Int(vbox.gMin) ... Int(vbox.gMax) {
+            for i in vbox.gRange {
                 var sum = 0
-                for j in Int(vbox.rMin) ... Int(vbox.rMax) {
-                    for k in Int(vbox.bMin) ... Int(vbox.bMax) {
+                for j in vbox.rRange {
+                    for k in vbox.bRange {
                         let index = MMCQ.getColorIndexOfRed(j, green: i, blue: k)
                         sum += histogram[index]
                     }
@@ -311,10 +323,10 @@ public class MMCQ {
                 partialSum[i] = total
             }
         case .b:
-            for i in Int(vbox.bMin) ... Int(vbox.bMax) {
+            for i in vbox.bRange {
                 var sum = 0
-                for j in Int(vbox.rMin) ... Int(vbox.rMax) {
-                    for k in Int(vbox.gMin) ... Int(vbox.gMax) {
+                for j in vbox.rRange {
+                    for k in vbox.gRange {
                         let index = MMCQ.getColorIndexOfRed(j, green: k, blue: i)
                         sum += histogram[index]
                     }

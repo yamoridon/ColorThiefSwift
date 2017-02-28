@@ -205,6 +205,20 @@ class Tests: XCTestCase {
         }
     }
 
+    func testSmallWidthImage() {
+        let width = 1
+        let height = 16
+        UIGraphicsBeginImageContext(CGSize(width: width, height: height))
+        let context = UIGraphicsGetCurrentContext()
+        CGContextSetRGBFillColor(context!, 0.0, 0.0, 0.5, 1.0)
+        CGContextFillRect(context!, CGRect(x: 0, y: 0, width: width, height: height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let color = ColorThief.getColorFromImage(image!, quality: 1, ignoreWhite: false)
+        XCTAssertNotNil(color)
+    }
+
     // To generate test code.
     /*
     func testGetPalette() {

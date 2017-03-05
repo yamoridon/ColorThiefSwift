@@ -17,8 +17,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Requirements
 
 - iOS 8
-- Swift 2
-  - Swift 3 version will be available soon!
+- Swift 2 or 3
 
 ## Installation
 
@@ -26,16 +25,11 @@ ColorThiefSwift is available through [CocoaPods](http://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "ColorThiefSwift"
+# Swift 3
+pod 'ColorThiefSwift', '>= 0.2.0' 
 
-# Support Swift 2 only for now
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-	    config.build_settings['SWIFT_VERSION'] = '2.3'
-	  end
-  end
-end
+# Swift 2
+pod 'ColorThiefSwift', '< 0.2.0'
 ```
 
 ## Author

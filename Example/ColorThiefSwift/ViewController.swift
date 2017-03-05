@@ -32,41 +32,41 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func buttonTapped(sender: UIButton) {
+    @IBAction func buttonTapped(_ sender: UIButton) {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.sourceType = .PhotoLibrary
-        presentViewController(picker, animated: true, completion: nil)
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
     }
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         imageView.image = image
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(qos: .default).async {
 
-            guard let colors = ColorThief.getPaletteFromImage(image, colorCount: 10, quality: 1, ignoreWhite: true) else {
+            guard let colors = ColorThief.getPalette(from: image, colorCount: 10, quality: 1, ignoreWhite: true) else {
                 return
             }
-            let start = NSDate()
-            guard let dominantColor = ColorThief.getColorFromImage(image) else {
+            let start = Date()
+            guard let dominantColor = ColorThief.getColor(from: image) else {
                 return
             }
             let elapsed = -start.timeIntervalSinceNow
             NSLog("time for getColorFromImage: \(Int(elapsed * 1000.0))ms")
-            dispatch_async(dispatch_get_main_queue()) { [weak self] in
+            DispatchQueue.main.async { [weak self] in
                 for i in 0 ..< 9 {
                     if i < colors.count {
                         let color = colors[i]
-                        self?.paletteViews[i].backgroundColor = color.toUIColor()
+                        self?.paletteViews[i].backgroundColor = color.makeUIColor()
                         self?.paletteLabels[i].text = "getPalette[\(i)] R\(color.r) G\(color.g) B\(color.b)"
                     } else {
-                        self?.paletteViews[i].backgroundColor = UIColor.whiteColor()
+                        self?.paletteViews[i].backgroundColor = UIColor.white
                         self?.paletteLabels[i].text = "-"
                     }
                 }
-                self?.colorView.backgroundColor = dominantColor.toUIColor()
+                self?.colorView.backgroundColor = dominantColor.makeUIColor()
                 self?.colorLabel.text = "getColor R\(dominantColor.r) G\(dominantColor.g) B\(dominantColor.b)"
 
             }

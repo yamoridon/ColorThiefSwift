@@ -19,16 +19,16 @@
 
 import UIKit
 
-public class ColorThief {
+open class ColorThief {
 
-    public static let DefaultQuality = 10
-    public static let DefaultIgnoreWhite = true
+    open static let DefaultQuality = 10
+    open static let DefaultIgnoreWhite = true
 
     /// Use the median cut algorithm to cluster similar colors and return the
     /// base color from the largest cluster.
     ///
     /// - Parameters:
-    ///   - sourceImage: the source image
+    ///   - image: the source image
     ///   - quality: 1 is the highest quality settings. 10 is the default. There is
     ///              a trade-off between quality and speed. The bigger the number,
     ///              the faster a color will be returned but the greater the
@@ -36,8 +36,8 @@ public class ColorThief {
     ///              color.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the dominant color
-    public static func getColorFromImage(sourceImage: UIImage, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.Color? {
-        guard let palette = getPaletteFromImage(sourceImage, colorCount: 5, quality: quality, ignoreWhite: ignoreWhite) else {
+    open static func getColor(from image: UIImage, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.Color? {
+        guard let palette = getPalette(from: image, colorCount: 5, quality: quality, ignoreWhite: ignoreWhite) else {
             return nil
         }
         let dominantColor = palette[0]
@@ -47,52 +47,56 @@ public class ColorThief {
     /// Use the median cut algorithm to cluster similar colors.
     ///
     /// - Parameters:
-    ///   - sourceImage: the source image
-    ///   - colorCount: the size of the palette; the number of colors returned
+    ///   - image: the source image
+    ///   - colorCount: the size of the palette; the number of colors returned.
+    ///                 *the actual size of array becomes smaller than this.
+    ///                 this is intended to align with the original Java version.*
     ///   - quality: 1 is the highest quality settings. 10 is the default. There is
     ///              a trade-off between quality and speed. The bigger the number,
     ///              the faster the palette generation but the greater the
     ///              likelihood that colors will be missed.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the palette
-    public static func getPaletteFromImage(sourceImage: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> [MMCQ.Color]? {
-        guard let colorMap = getColorMapFromImage(sourceImage, colorCount: colorCount, quality: quality, ignoreWhite: ignoreWhite) else {
+    open static func getPalette(from image: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> [MMCQ.Color]? {
+        guard let colorMap = getColorMap(from: image, colorCount: colorCount, quality: quality, ignoreWhite: ignoreWhite) else {
             return nil
         }
-        return colorMap.palette()
+        return colorMap.makePalette()
     }
 
     /// Use the median cut algorithm to cluster similar colors.
     ///
     /// - Parameters:
-    ///   - sourceImage: the source image
-    ///   - colorCount: the size of the palette; the number of colors returned
+    ///   - image: the source image
+    ///   - colorCount: the size of the palette; the number of colors returned.
+    ///                 *the actual size of array becomes smaller than this.
+    ///                 this is intended to align with the original Java version.*
     ///   - quality: 1 is the highest quality settings. 10 is the default. There is
     ///              a trade-off between quality and speed. The bigger the number,
     ///              the faster the palette generation but the greater the
     ///              likelihood that colors will be missed.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the color map
-    public static func getColorMapFromImage(sourceImage: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.ColorMap? {
-        guard let pixels = getByteArrayFromImage(sourceImage) else {
+    open static func getColorMap(from image: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.ColorMap? {
+        guard let pixels = makeByteArray(from: image) else {
             return nil
         }
-        let colorMap = MMCQ.quantizePixels(pixels, quality: quality, ignoreWhite: ignoreWhite, maxColors: colorCount)
+        let colorMap = MMCQ.quantize(pixels, quality: quality, ignoreWhite: ignoreWhite, maxColors: colorCount)
         return colorMap
     }
 
-    static func getByteArrayFromImage(sourceImage: UIImage) -> [UInt8]? {
-        guard let cgImage = sourceImage.CGImage else {
+    static func makeByteArray(from image: UIImage) -> [UInt8]? {
+        guard let cgImage = image.cgImage else {
             return nil
         }
-        guard let dataProvider = CGImageGetDataProvider(cgImage) else {
+        guard let dataProvider = cgImage.dataProvider else {
             return nil
         }
-        guard let data = CGDataProviderCopyData(dataProvider) else {
+        guard let data = dataProvider.data else {
             return nil
         }
         let length = CFDataGetLength(data)
-        var rawData = [UInt8](count: length, repeatedValue: 0)
+        var rawData = [UInt8](repeating: 0, count: length)
         CFDataGetBytes(data, CFRange(location: 0, length: length), &rawData)
         return rawData
     }

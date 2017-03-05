@@ -8,8 +8,8 @@ class Tests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let bundle = NSBundle(forClass: self.dynamicType)
-        let path = bundle.pathForResource("pen", ofType: "jpg")!
+        let bundle = Bundle(for: type(of: self))
+        let path = bundle.path(forResource: "pen", ofType: "jpg")!
         image = UIImage(contentsOfFile: path)
     }
 
@@ -18,7 +18,7 @@ class Tests: XCTestCase {
     }
 
     func testGetColor1() {
-        let color = ColorThief.getColorFromImage(image, quality: 20, ignoreWhite: true)
+        let color = ColorThief.getColor(from: image, quality: 20, ignoreWhite: true)
         XCTAssertNotNil(color)
         if let color = color {
             XCTAssertEqual(color.r, 31)
@@ -28,7 +28,7 @@ class Tests: XCTestCase {
     }
 
     func testGetColor2() {
-        let color = ColorThief.getColorFromImage(image, quality: 20, ignoreWhite: false)
+        let color = ColorThief.getColor(from: image, quality: 20, ignoreWhite: false)
         XCTAssertNotNil(color)
         if let color = color {
             XCTAssertEqual(color.r, 35)
@@ -38,7 +38,7 @@ class Tests: XCTestCase {
     }
 
     func testGetColor3() {
-        let color = ColorThief.getColorFromImage(image, quality: 1, ignoreWhite: true)
+        let color = ColorThief.getColor(from: image, quality: 1, ignoreWhite: true)
         XCTAssertNotNil(color)
         if let color = color {
             XCTAssertEqual(color.r, 31)
@@ -48,7 +48,7 @@ class Tests: XCTestCase {
     }
 
     func testGetColor4() {
-        let color = ColorThief.getColorFromImage(image, quality: 1, ignoreWhite: false)
+        let color = ColorThief.getColor(from: image, quality: 1, ignoreWhite: false)
         XCTAssertNotNil(color)
         if let color = color {
             XCTAssertEqual(color.r, 35)
@@ -58,7 +58,7 @@ class Tests: XCTestCase {
     }
 
     func testGetPalette1() {
-        let palette = ColorThief.getPaletteFromImage(image, colorCount: 10, quality: 20, ignoreWhite: true)
+        let palette = ColorThief.getPalette(from: image, colorCount: 10, quality: 20, ignoreWhite: true)
         XCTAssertNotNil(palette)
         if let palette = palette {
             XCTAssertEqual(palette.count, 9)
@@ -95,7 +95,7 @@ class Tests: XCTestCase {
     }
 
     func testGetPalette2() {
-        let palette = ColorThief.getPaletteFromImage(image, colorCount: 10, quality: 20, ignoreWhite: false)
+        let palette = ColorThief.getPalette(from: image, colorCount: 10, quality: 20, ignoreWhite: false)
         XCTAssertNotNil(palette)
         if let palette = palette {
             XCTAssertEqual(palette.count, 9)
@@ -132,7 +132,7 @@ class Tests: XCTestCase {
     }
 
     func testGetPalette3() {
-        let palette = ColorThief.getPaletteFromImage(image, colorCount: 10, quality: 1, ignoreWhite: true)
+        let palette = ColorThief.getPalette(from: image, colorCount: 10, quality: 1, ignoreWhite: true)
         XCTAssertNotNil(palette)
         if let palette = palette {
             XCTAssertEqual(palette.count, 9)
@@ -169,7 +169,7 @@ class Tests: XCTestCase {
     }
 
     func testGetPalette4() {
-        let palette = ColorThief.getPaletteFromImage(image, colorCount: 10, quality: 1, ignoreWhite: false)
+        let palette = ColorThief.getPalette(from: image, colorCount: 10, quality: 1, ignoreWhite: false)
         XCTAssertNotNil(palette)
         if let palette = palette {
             XCTAssertEqual(palette.count, 9)
@@ -210,19 +210,19 @@ class Tests: XCTestCase {
         let height = 16
         UIGraphicsBeginImageContext(CGSize(width: width, height: height))
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetRGBFillColor(context!, 0.0, 0.0, 0.5, 1.0)
-        CGContextFillRect(context!, CGRect(x: 0, y: 0, width: width, height: height))
+        context!.setFillColor(red: 0.0, green: 0.0, blue: 0.5, alpha: 1.0)
+        context!.fill(CGRect(x: 0, y: 0, width: width, height: height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        let color = ColorThief.getColorFromImage(image!, quality: 1, ignoreWhite: false)
+        let color = ColorThief.getColor(from: image!, quality: 1, ignoreWhite: false)
         XCTAssertNotNil(color)
     }
 
     // To generate test code.
     /*
     func testGetPalette() {
-        let palette = ColorThief.getPaletteFromImage(image, colorCount: 10, quality: 20, ignoreWhite: false)
+        let palette = ColorThief.getPalette(from: image, colorCount: 10, quality: 20, ignoreWhite: false)
         XCTAssertNotNil(palette)
         if let palette = palette {
             XCTAssertEqual(palette.count, 9)
@@ -236,8 +236,8 @@ class Tests: XCTestCase {
      */
 
     func testPerformanceGetPalette() {
-        self.measureBlock { [weak self] in
-            ColorThief.getPaletteFromImage(self!.image, colorCount: 10, quality: 1, ignoreWhite: false)
+        self.measure { [weak self] in
+            let _ = ColorThief.getPalette(from: self!.image, colorCount: 10, quality: 1, ignoreWhite: false)
         }
     }
 

@@ -210,7 +210,7 @@ class Tests: XCTestCase {
         let height = 16
         UIGraphicsBeginImageContext(CGSize(width: width, height: height))
         let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(red: 0.0, green: 0.0, blue: 0.5, alpha: 1.0)
+        context!.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         context!.fill(CGRect(x: 0, y: 0, width: width, height: height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

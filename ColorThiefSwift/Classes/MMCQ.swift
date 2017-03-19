@@ -179,9 +179,9 @@ public class MMCQ {
                     let b = UInt8(bSum / ntot)
                     average = Color(r: r, g: g, b: b)
                 } else {
-                    let r = UInt8(MMCQ.Multiplier * (Int(rMin) + Int(rMax) + 1) / 2)
-                    let g = UInt8(MMCQ.Multiplier * (Int(gMin) + Int(gMax) + 1) / 2)
-                    let b = UInt8(MMCQ.Multiplier * (Int(bMin) + Int(bMax) + 1) / 2)
+                    let r = UInt8(min(MMCQ.Multiplier * (Int(rMin) + Int(rMax) + 1) / 2, 255))
+                    let g = UInt8(min(MMCQ.Multiplier * (Int(gMin) + Int(gMax) + 1) / 2, 255))
+                    let b = UInt8(min(MMCQ.Multiplier * (Int(bMin) + Int(bMax) + 1) / 2, 255))
                     average = Color(r: r, g: g, b: b)
                 }
 

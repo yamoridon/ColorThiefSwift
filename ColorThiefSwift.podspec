@@ -27,9 +27,10 @@ A Swift port of same name libraries of JavaScript and Java.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Kazuki Ohara' => 'kazuki.ohara@gmail.com' }
   s.source           = { :git => 'https://github.com/orchely/ColorThiefSwift.git', :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/orchely'
+  s.social_media_url = 'https://twitter.com/yamoridon'
 
   s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
 
   s.source_files = 'ColorThiefSwift/Classes/*.swift'
   

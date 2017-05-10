@@ -30,6 +30,7 @@ A Swift port of same name libraries of JavaScript and Java.
   s.social_media_url = 'https://twitter.com/yamoridon'
 
   s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
 
   s.source_files = 'ColorThiefSwift/Classes/*.swift'
   

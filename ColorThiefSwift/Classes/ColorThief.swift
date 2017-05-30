@@ -78,18 +78,53 @@ open class ColorThief {
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the color map
     open static func getColorMap(from image: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.ColorMap? {
-        guard let pixels = makeByteArray(from: image) else {
+        guard let pixels = makeBytes(from: image) else {
             return nil
         }
         let colorMap = MMCQ.quantize(pixels, quality: quality, ignoreWhite: ignoreWhite, maxColors: colorCount)
         return colorMap
     }
 
-    static func makeByteArray(from image: UIImage) -> [UInt8]? {
+    static func makeBytes(from image: UIImage) -> [UInt8]? {
         guard let cgImage = image.cgImage else {
             return nil
         }
-        guard let dataProvider = cgImage.dataProvider else {
+        if isCompatibleImage(cgImage) {
+            return makeBytesFromCompatibleImage(cgImage)
+        } else {
+            return makeBytesFromIncompatibleImage(cgImage)
+        }
+    }
+
+    static func isCompatibleImage(_ cgImage: CGImage) -> Bool {
+        guard let colorSpace = cgImage.colorSpace else {
+            return false
+        }
+        if colorSpace.model != .rgb {
+            return false
+        }
+        let bitmapInfo = cgImage.bitmapInfo
+        let alpha = bitmapInfo.rawValue & CGBitmapInfo.alphaInfoMask.rawValue
+        let alphaRequirement = (alpha == CGImageAlphaInfo.noneSkipLast.rawValue || alpha == CGImageAlphaInfo.last.rawValue)
+        let byteOrder = bitmapInfo.rawValue & CGBitmapInfo.byteOrderMask.rawValue
+        let byteOrderRequirement = (byteOrder == CGBitmapInfo.byteOrder32Little.rawValue)
+        if !(alphaRequirement && byteOrderRequirement) {
+            return false
+        }
+        if cgImage.bitsPerComponent != 8 {
+            return false
+        }
+        if cgImage.bitsPerPixel != 32 {
+            return false
+        }
+        if cgImage.bytesPerRow != cgImage.width * 4 {
+            return false
+        }
+        return true
+    }
+
+    static func makeBytesFromCompatibleImage(_ image: CGImage) -> [UInt8]? {
+        guard let dataProvider = image.dataProvider else {
             return nil
         }
         guard let data = dataProvider.data else {
@@ -98,6 +133,24 @@ open class ColorThief {
         let length = CFDataGetLength(data)
         var rawData = [UInt8](repeating: 0, count: length)
         CFDataGetBytes(data, CFRange(location: 0, length: length), &rawData)
+        return rawData
+    }
+
+    static func makeBytesFromIncompatibleImage(_ image: CGImage) -> [UInt8]? {
+        let width = image.width
+        let height = image.height
+        var rawData = [UInt8](repeating: 0, count: width * height * 4)
+        guard let context = CGContext(
+            data: &rawData,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: 4 * width,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue | CGBitmapInfo.byteOrder32Little.rawValue) else {
+                return nil
+        }
+        context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
         return rawData
     }
 

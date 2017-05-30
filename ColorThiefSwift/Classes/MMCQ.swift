@@ -251,10 +251,10 @@ open class MMCQ {
 
         let pixelCount = pixels.count / 4
         for i in stride(from: 0, to: pixelCount, by: quality) {
-            let r = pixels[i * 4 + 0]
-            let g = pixels[i * 4 + 1]
-            let b = pixels[i * 4 + 2]
-            let a = pixels[i * 4 + 3]
+            let a = pixels[i * 4 + 0]
+            let b = pixels[i * 4 + 1]
+            let g = pixels[i * 4 + 2]
+            let r = pixels[i * 4 + 3]
 
             // If pixel is not mostly opaque or white
             guard a >= 125 && !(ignoreWhite && r > 250 && g > 250 && b > 250) else {

@@ -93,8 +93,6 @@ public class ColorThief {
     }
 
     private static func isCompatibleImage(cgImage: CGImage) -> Bool {
-        let width = CGImageGetWidth(cgImage)
-        let height = CGImageGetHeight(cgImage)
         guard let colorSpace = CGImageGetColorSpace(cgImage) else {
             return false
         }
@@ -122,7 +120,6 @@ public class ColorThief {
     }
 
     private static func getBytesFromCompatibleImage(cgImage: CGImage) -> [UInt8]? {
-        let t = NSDate()
         guard let dataProvider = CGImageGetDataProvider(cgImage) else {
             return nil
         }

@@ -251,9 +251,9 @@ public class MMCQ {
 
         let pixelCount = pixels.count / 4
         for i in 0.stride(to: pixelCount, by: quality) {
-            let r = pixels[i * 4 + 0]
+            let b = pixels[i * 4 + 0]
             let g = pixels[i * 4 + 1]
-            let b = pixels[i * 4 + 2]
+            let r = pixels[i * 4 + 2]
             let a = pixels[i * 4 + 3]
 
             // If pixel is not mostly opaque or white
@@ -345,58 +345,58 @@ public class MMCQ {
     }
 
     private static func doCutByAxis(axis: ColorChannel, vbox: VBox, partialSum: [Int], lookAheadSum: [Int], total: Int) -> [VBox] {
-        let vboxMin: UInt8
-        let vboxMax: UInt8
+        let vboxMin: Int
+        let vboxMax: Int
 
         switch axis {
         case .r:
-            vboxMin = vbox.rMin
-            vboxMax = vbox.rMax
+            vboxMin = Int(vbox.rMin)
+            vboxMax = Int(vbox.rMax)
         case .g:
-            vboxMin = vbox.gMin
-            vboxMax = vbox.gMax
+            vboxMin = Int(vbox.gMin)
+            vboxMax = Int(vbox.gMax)
         case .b:
-            vboxMin = vbox.bMin
-            vboxMax = vbox.bMax
+            vboxMin = Int(vbox.bMin)
+            vboxMax = Int(vbox.bMax)
         }
 
-        for i in vboxMin ... vboxMax where partialSum[Int(i)] > total / 2 {
+        for i in vboxMin ... vboxMax where partialSum[i] > total / 2 {
             let vbox1 = VBox(vbox: vbox)
             let vbox2 = VBox(vbox: vbox)
 
             let left = i - vboxMin
             let right = vboxMax - i
 
-            var d2: UInt8
+            var d2: Int
             if left <= right {
                 d2 = min(vboxMax - 1, i + right / 2)
             } else {
                 // 2.0 and cast to int is necessary to have the same
                 // behaviour as in JavaScript
-                d2 = max(vboxMin, UInt8(Double(i - 1) - Double(left) / 2.0))
+                d2 = max(vboxMin, Int(Double(i - 1) - Double(left) / 2.0))
             }
 
             // avoid 0-count
-            while d2 < 0 || partialSum[Int(d2)] <= 0 {
+            while d2 < 0 || partialSum[d2] <= 0 {
                 d2 += 1
             }
-            var count2 = lookAheadSum[Int(d2)]
-            while count2 == 0 && d2 > 0 && partialSum[Int(d2) - 1] > 0 {
+            var count2 = lookAheadSum[d2]
+            while count2 == 0 && d2 > 0 && partialSum[d2 - 1] > 0 {
                 d2 -= 1
-                count2 = lookAheadSum[Int(d2)]
+                count2 = lookAheadSum[d2]
             }
 
             // set dimensions
             switch axis {
             case .r:
-                vbox1.rMax = d2
-                vbox2.rMin = d2 + 1
+                vbox1.rMax = UInt8(d2)
+                vbox2.rMin = UInt8(min(255, d2 + 1))
             case .g:
-                vbox1.gMax = d2
-                vbox2.gMin = d2 + 1
+                vbox1.gMax = UInt8(d2)
+                vbox2.gMin = UInt8(min(255, d2 + 1))
             case .b:
-                vbox1.bMax = d2
-                vbox2.bMin = d2 + 1
+                vbox1.bMax = UInt8(d2)
+                vbox2.bMin = UInt8(min(255, d2 + 1))
             }
 
             return [vbox1, vbox2]

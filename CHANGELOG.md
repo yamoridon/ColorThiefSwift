@@ -1,3 +1,8 @@
+## 0.2.2 (2017-5-31)
+
+* bugix.
+* tvos support.(EXPERIMENTAL!)
+
 ## 0.2.1 (2017-3-19)
 
 * bugfix.

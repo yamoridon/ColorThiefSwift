@@ -22,11 +22,11 @@ Grabs the dominant color or a representative color palette from an image.
 A Swift port of same name libraries of JavaScript and Java.
                        DESC
 
-  s.homepage         = 'https://github.com/orchely/ColorThiefSwift'
-  s.screenshots     = 'https://github.com/orchely/ColorThiefSwift/raw/master/screenshot.png'
+  s.homepage         = 'https://github.com/yamoridon/ColorThiefSwift'
+  s.screenshots     = 'https://github.com/yamoridon/ColorThiefSwift/raw/master/screenshot.png'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Kazuki Ohara' => 'kazuki.ohara@gmail.com' }
-  s.source           = { :git => 'https://github.com/orchely/ColorThiefSwift.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/yamoridon/ColorThiefSwift.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/yamoridon'
 
   s.ios.deployment_target = '8.0'

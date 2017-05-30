@@ -3,9 +3,9 @@
 Grabs the dominant color or a representative color palette from an image.
 A Swift port of Sven Woltmann's Java implementation.
 
-![screen shot](https://github.com/orchely/ColorThiefSwift/blob/master/screenshot.png?raw=true "screen shot")
+![screen shot](https://github.com/yamoridon/ColorThiefSwift/blob/master/screenshot.png?raw=true "screen shot")
 
-[![CI Status](http://img.shields.io/travis/orchely/ColorThiefSwift.svg?style=flat)](https://travis-ci.org/orchely/ColorThiefSwift)
+[![CI Status](http://img.shields.io/travis/yamoridon/ColorThiefSwift.svg?style=flat)](https://travis-ci.org/yamoridon/ColorThiefSwift)
 [![Version](https://img.shields.io/cocoapods/v/ColorThiefSwift.svg?style=flat)](http://cocoapods.org/pods/ColorThiefSwift)
 [![License](https://img.shields.io/cocoapods/l/ColorThiefSwift.svg?style=flat)](http://cocoapods.org/pods/ColorThiefSwift)
 [![Platform](https://img.shields.io/cocoapods/p/ColorThiefSwift.svg?style=flat)](http://cocoapods.org/pods/ColorThiefSwift)

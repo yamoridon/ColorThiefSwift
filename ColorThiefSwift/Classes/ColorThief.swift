@@ -8,7 +8,7 @@
 //  License
 //  -------
 //  MIT License
-//  https://github.com/orchely/ColorThiefSwift/blob/master/LICENSE
+//  https://github.com/yamoridon/ColorThiefSwift/blob/master/LICENSE
 //
 //  Thanks
 //  ------

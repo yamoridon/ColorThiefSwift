@@ -1,3 +1,7 @@
+## 0.3.0 (2017-10-1)
+
+* Support Xcode 9 and Swift 4
+
 ## 0.2.2 (2017-5-31)
 
 * bugix.

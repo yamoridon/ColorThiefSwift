@@ -251,7 +251,7 @@ class Tests: XCTestCase {
 
     func testPerformanceGetPalette() {
         self.measure { [weak self] in
-            let _ = ColorThief.getPalette(from: self!.image, colorCount: 10, quality: 1, ignoreWhite: false)
+            _ = ColorThief.getPalette(from: self!.image, colorCount: 10, quality: 1, ignoreWhite: false)
         }
     }
 

@@ -21,8 +21,8 @@ import UIKit
 
 open class ColorThief {
 
-    open static let DefaultQuality = 10
-    open static let DefaultIgnoreWhite = true
+    open static let defaultQuality = 10
+    open static let defaultIgnoreWhite = true
 
     /// Use the median cut algorithm to cluster similar colors and return the
     /// base color from the largest cluster.
@@ -36,7 +36,7 @@ open class ColorThief {
     ///              color.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the dominant color
-    open static func getColor(from image: UIImage, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.Color? {
+    open static func getColor(from image: UIImage, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> MMCQ.Color? {
         guard let palette = getPalette(from: image, colorCount: 5, quality: quality, ignoreWhite: ignoreWhite) else {
             return nil
         }
@@ -57,7 +57,7 @@ open class ColorThief {
     ///              likelihood that colors will be missed.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the palette
-    open static func getPalette(from image: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> [MMCQ.Color]? {
+    open static func getPalette(from image: UIImage, colorCount: Int, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> [MMCQ.Color]? {
         guard let colorMap = getColorMap(from: image, colorCount: colorCount, quality: quality, ignoreWhite: ignoreWhite) else {
             return nil
         }
@@ -77,7 +77,7 @@ open class ColorThief {
     ///              likelihood that colors will be missed.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the color map
-    open static func getColorMap(from image: UIImage, colorCount: Int, quality: Int = DefaultQuality, ignoreWhite: Bool = DefaultIgnoreWhite) -> MMCQ.ColorMap? {
+    open static func getColorMap(from image: UIImage, colorCount: Int, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> MMCQ.ColorMap? {
         guard let pixels = makeBytes(from: image) else {
             return nil
         }

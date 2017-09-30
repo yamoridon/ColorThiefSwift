@@ -24,13 +24,13 @@ import Foundation
 open class MMCQ {
 
     // Use only upper 5 bits of 8 bits
-    private static let SignalBits = 5
-    private static let RightShift = 8 - SignalBits
-    private static let Multiplier = 1 << RightShift
-    private static let HistogramSize = 1 << (3 * SignalBits)
-    private static let VBoxLength = 1 << SignalBits
-    private static let FractionByPopulation = 0.75
-    private static let MaxIterations = 1000
+    private static let signalBits = 5
+    private static let rightShift = 8 - signalBits
+    private static let multiplier = 1 << rightShift
+    private static let histogramSize = 1 << (3 * signalBits)
+    private static let vboxLength = 1 << signalBits
+    private static let fractionByPopulation = 0.75
+    private static let maxIterations = 1000
 
     /// Get reduced-space color index for a pixel.
     ///
@@ -40,7 +40,7 @@ open class MMCQ {
     ///   - blue: the blue value
     /// - Returns: the color index
     static func makeColorIndexOf(red: Int, green: Int, blue: Int) -> Int {
-        return (red << (2 * SignalBits)) + (green << SignalBits) + blue
+        return (red << (2 * signalBits)) + (green << signalBits) + blue
     }
 
     public struct Color {
@@ -165,9 +165,9 @@ open class MMCQ {
                             let index = MMCQ.makeColorIndexOf(red: i, green: j, blue: k)
                             let hval = histogram[index]
                             ntot += hval
-                            rSum += Int(Double(hval) * (Double(i) + 0.5) * Double(MMCQ.Multiplier))
-                            gSum += Int(Double(hval) * (Double(j) + 0.5) * Double(MMCQ.Multiplier))
-                            bSum += Int(Double(hval) * (Double(k) + 0.5) * Double(MMCQ.Multiplier))
+                            rSum += Int(Double(hval) * (Double(i) + 0.5) * Double(MMCQ.multiplier))
+                            gSum += Int(Double(hval) * (Double(j) + 0.5) * Double(MMCQ.multiplier))
+                            bSum += Int(Double(hval) * (Double(k) + 0.5) * Double(MMCQ.multiplier))
                         }
                     }
                 }
@@ -179,9 +179,9 @@ open class MMCQ {
                     let b = UInt8(bSum / ntot)
                     average = Color(r: r, g: g, b: b)
                 } else {
-                    let r = UInt8(min(MMCQ.Multiplier * (Int(rMin) + Int(rMax) + 1) / 2, 255))
-                    let g = UInt8(min(MMCQ.Multiplier * (Int(gMin) + Int(gMax) + 1) / 2, 255))
-                    let b = UInt8(min(MMCQ.Multiplier * (Int(bMin) + Int(bMax) + 1) / 2, 255))
+                    let r = UInt8(min(MMCQ.multiplier * (Int(rMin) + Int(rMax) + 1) / 2, 255))
+                    let g = UInt8(min(MMCQ.multiplier * (Int(gMin) + Int(gMax) + 1) / 2, 255))
+                    let b = UInt8(min(MMCQ.multiplier * (Int(bMin) + Int(bMax) + 1) / 2, 255))
                     average = Color(r: r, g: g, b: b)
                 }
 
@@ -241,7 +241,7 @@ open class MMCQ {
 
     /// Histo (1-d array, giving the number of pixels in each quantized region of color space), or null on error.
     private static func makeHistogramAndVBox(from pixels: [UInt8], quality: Int, ignoreWhite: Bool) -> ([Int], VBox) {
-        var histogram = [Int](repeating: 0, count: HistogramSize)
+        var histogram = [Int](repeating: 0, count: histogramSize)
         var rMin = UInt8.max
         var rMax = UInt8.min
         var gMin = UInt8.max
@@ -261,9 +261,9 @@ open class MMCQ {
                 continue
             }
 
-            let shiftedR = r >> UInt8(RightShift)
-            let shiftedG = g >> UInt8(RightShift)
-            let shiftedB = b >> UInt8(RightShift)
+            let shiftedR = r >> UInt8(rightShift)
+            let shiftedG = g >> UInt8(rightShift)
+            let shiftedB = b >> UInt8(rightShift)
 
             // find min/max
             rMin = min(rMin, shiftedR)
@@ -294,7 +294,7 @@ open class MMCQ {
 
         // Find the partial sum arrays along the selected axis.
         var total = 0
-        var partialSum = [Int](repeating: -1, count: VBoxLength) // -1 = not set / 0 = 0
+        var partialSum = [Int](repeating: -1, count: vboxLength) // -1 = not set / 0 = 0
 
         let axis = vbox.widestColorChannel()
         switch axis {
@@ -336,7 +336,7 @@ open class MMCQ {
             }
         }
 
-        var lookAheadSum = [Int](repeating: -1, count: VBoxLength) // -1 = not set / 0 = 0
+        var lookAheadSum = [Int](repeating: -1, count: vboxLength) // -1 = not set / 0 = 0
         for (i, sum) in partialSum.enumerated() where sum != -1 {
             lookAheadSum[i] = total - sum
         }
@@ -418,7 +418,7 @@ open class MMCQ {
         var pq = [vbox]
 
         // Round up to have the same behaviour as in JavaScript
-        let target = Int(ceil(FractionByPopulation * Double(maxColors)))
+        let target = Int(ceil(fractionByPopulation * Double(maxColors)))
 
         // first set of colors, sorted by population
         iterate(over: &pq, comparator: compareByCount, target: target, histogram: histogram)
@@ -442,7 +442,7 @@ open class MMCQ {
     private static func iterate(over queue: inout [VBox], comparator: (VBox, VBox) -> Bool, target: Int, histogram: [Int]) {
         var color = 1
 
-        for _ in 0 ..< MaxIterations {
+        for _ in 0 ..< maxIterations {
             guard let vbox = queue.last else {
                 return
             }

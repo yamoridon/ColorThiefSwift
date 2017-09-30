@@ -45,7 +45,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imageView.image = image
 
         DispatchQueue.global(qos: .default).async {
-
             guard let colors = ColorThief.getPalette(from: image, colorCount: 10, quality: 1, ignoreWhite: true) else {
                 return
             }
@@ -68,7 +67,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 }
                 self?.colorView.backgroundColor = dominantColor.makeUIColor()
                 self?.colorLabel.text = "getColor R\(dominantColor.r) G\(dominantColor.g) B\(dominantColor.b)"
-
             }
         }
     }

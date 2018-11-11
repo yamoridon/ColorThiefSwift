@@ -1,3 +1,7 @@
+## 0.3.1 (2018-11-12)
+
+* Support Xcode 10 and Swift 4.2
+
 ## 0.3.0 (2017-10-1)
 
 * Support Xcode 9 and Swift 4

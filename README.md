@@ -5,7 +5,7 @@ A Swift port of Sven Woltmann's Java implementation.
 
 ![screen shot](https://github.com/yamoridon/ColorThiefSwift/blob/master/screenshot.png?raw=true "screen shot")
 
-[![CI Status](http://img.shields.io/travis/yamoridon/ColorThiefSwift.svg?style=flat)](https://travis-ci.org/yamoridon/ColorThiefSwift)
+[![Build Status](https://app.bitrise.io/app/36bdb92c783ae764/status.svg?token=XE0zz2NQ9YgDskIP61QTaA&branch=bitrise)](https://app.bitrise.io/app/36bdb92c783ae764)
 [![Version](https://img.shields.io/cocoapods/v/ColorThiefSwift.svg?style=flat)](http://cocoapods.org/pods/ColorThiefSwift)
 [![License](https://img.shields.io/cocoapods/l/ColorThiefSwift.svg?style=flat)](http://cocoapods.org/pods/ColorThiefSwift)
 [![Platform](https://img.shields.io/cocoapods/p/ColorThiefSwift.svg?style=flat)](http://cocoapods.org/pods/ColorThiefSwift)
@@ -17,6 +17,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Requirements
 
 - Xcode 9
+  - Use Legacy Build System on Xcode 10
 - Swift 4
 - iOS 9
 

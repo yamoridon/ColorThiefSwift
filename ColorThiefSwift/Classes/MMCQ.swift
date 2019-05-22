@@ -3,7 +3,7 @@
 //  ColorThiefSwift
 //
 //  Created by Kazuki Ohara on 2017/02/11.
-//  Copyright © 2017 Kazuki Ohara. All rights reserved.
+//  Copyright © 2019 Kazuki Ohara. All rights reserved.
 //
 //  License
 //  -------
@@ -119,11 +119,11 @@ open class MMCQ {
         /// - Returns: the volume
         func getVolume(forceRecalculate force: Bool = false) -> Int {
             if let volume = volume, !force {
-               return volume
+                return volume
             } else {
-               let volume = (Int(rMax) - Int(rMin) + 1) * (Int(gMax) - Int(gMin) + 1) * (Int(bMax) - Int(bMin) + 1)
-               self.volume = volume
-               return volume
+                let volume = (Int(rMax) - Int(rMin) + 1) * (Int(gMax) - Int(gMin) + 1) * (Int(bMax) - Int(bMin) + 1)
+                self.volume = volume
+                return volume
             }
         }
 
@@ -463,7 +463,7 @@ open class MMCQ {
             queue.sort(by: comparator)
 
             if color >= target {
-               return
+                return
             }
         }
     }

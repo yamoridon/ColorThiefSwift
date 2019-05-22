@@ -3,7 +3,7 @@
 //  ColorThiefSwift
 //
 //  Created by Kazuki Ohara on 2017/02/11.
-//  Copyright © 2017 Kazuki Ohara. All rights reserved.
+//  Copyright © 2019 Kazuki Ohara. All rights reserved.
 //
 //  License
 //  -------

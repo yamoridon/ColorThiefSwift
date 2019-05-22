@@ -3,12 +3,12 @@
 # valid spec before submitting.
 #
 # Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
+# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
 #
 
 Pod::Spec.new do |s|
   s.name             = 'ColorThiefSwift'
-  s.version          = '0.3.1'
+  s.version          = '0.4.0'
   s.summary          = 'Grabs the dominant color or a representative color palette from an image.'
 
 # This description is used to generate tags and improve search results.
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 Grabs the dominant color or a representative color palette from an image.
 A Swift port of same name libraries of JavaScript and Java.
-                       DESC
+  DESC
 
   s.homepage         = 'https://github.com/yamoridon/ColorThiefSwift'
   s.screenshots     = 'https://github.com/yamoridon/ColorThiefSwift/raw/master/screenshot.png'
@@ -33,7 +33,7 @@ A Swift port of same name libraries of JavaScript and Java.
   s.tvos.deployment_target = '9.0'
   s.swift_version = '4.2'
 
-  s.source_files = 'ColorThiefSwift/Classes/*.swift'
+  s.source_files = 'ColorThiefSwift/Classes/**/*'
   
   # s.resource_bundles = {
   #   'ColorThiefSwift' => ['ColorThiefSwift/Assets/*.png']

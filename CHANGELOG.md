@@ -1,3 +1,8 @@
+## 0.4.0 (2019-5-25)
+
+* Support Xcode 10.2 and Swift 5.0
+* Support Carthage
+
 ## 0.3.1 (2018-11-12)
 
 * Support Xcode 10 and Swift 4.2

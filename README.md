@@ -33,12 +33,10 @@ pod 'ColorThiefSwift', '>= 0.4.0'
 
 ### Carthage
 
-Officially supported: Carthage 0.33 and up.
-
 Add this to Cartfile
 
 ```
-github "yamoridon/ColorThiefSwift" ~> 5.0
+github "yamoridon/ColorThiefSwift" ~> 0.4.0
 ```
 
 ```

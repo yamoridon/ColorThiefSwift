@@ -31,7 +31,7 @@ A Swift port of same name libraries of JavaScript and Java.
 
   s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
   s.source_files = 'ColorThiefSwift/Classes/**/*'
   

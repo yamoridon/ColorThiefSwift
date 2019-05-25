@@ -1,9 +1,11 @@
 use_frameworks!
 
-target 'ColorThiefSwift_Example' do
+target 'ColorThiefSwiftExample' do
   pod 'ColorThiefSwift', :path => '../'
-end
 
-target 'ColorThiefSwift_Tests' do
-  pod 'ColorThiefSwift', :path => '../'
+  target 'ColorThiefSwiftTests' do
+    inherit! :search_paths
+
+    
+  end
 end

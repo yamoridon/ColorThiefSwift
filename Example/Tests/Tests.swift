@@ -247,7 +247,7 @@ class Tests: XCTestCase {
             }
         }
     }
-     */
+    */
 
     func testPerformanceGetPalette() {
         self.measure { [weak self] in

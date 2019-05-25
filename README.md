@@ -16,18 +16,31 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-- Xcode 9
-  - Use Legacy Build System on Xcode 10
-- Swift 4
+- Xcode 10.2
+- Swift 5
 - iOS 9
 
 ## Installation
+
+### CocoaPods
 
 ColorThiefSwift is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ColorThiefSwift', '>= 0.3.0'
+pod 'ColorThiefSwift', '>= 0.4.0'
+```
+
+### Carthage
+
+Add this to Cartfile
+
+```
+github "yamoridon/ColorThiefSwift" ~> 0.4.0
+```
+
+```
+$ carthage update
 ```
 
 ## Author

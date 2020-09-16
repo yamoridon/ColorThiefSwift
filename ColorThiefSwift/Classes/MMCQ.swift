@@ -17,7 +17,7 @@
 //  Sven Woltmann - for the fast Java Implementation
 //  https://github.com/SvenWoltmann/color-thief-java
 
-import Foundation
+import UIKit
 
 /// MMCQ (modified median cut quantization) algorithm from
 /// the Leptonica library (http://www.leptonica.com/).

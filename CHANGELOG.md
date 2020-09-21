@@ -1,3 +1,7 @@
+## 0.4.1 (2020-9-21)
+
+* Support SPM
+
 ## 0.4.0 (2019-5-25)
 
 * Support Xcode 10.2 and Swift 5.0

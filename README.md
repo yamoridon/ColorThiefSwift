@@ -28,7 +28,7 @@ ColorThiefSwift is available through [CocoaPods](http://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ColorThiefSwift', '>= 0.4.0'
+pod 'ColorThiefSwift', '>= 0.4.1'
 ```
 
 ### Carthage
@@ -36,7 +36,7 @@ pod 'ColorThiefSwift', '>= 0.4.0'
 Add this to Cartfile
 
 ```
-github "yamoridon/ColorThiefSwift" ~> 0.4.0
+github "yamoridon/ColorThiefSwift" ~> 0.4.1
 ```
 
 ```

@@ -60,14 +60,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 for i in 0 ..< 9 {
                     if i < colors.count {
                         let color = colors[i]
-                        self?.paletteViews[i].backgroundColor = color.makeUIColor()
+                        self?.paletteViews[i].backgroundColor = color.makePlatformNativeColor()
                         self?.paletteLabels[i].text = "getPalette[\(i)] R\(color.r) G\(color.g) B\(color.b)"
                     } else {
                         self?.paletteViews[i].backgroundColor = UIColor.white
                         self?.paletteLabels[i].text = "-"
                     }
                 }
-                self?.colorView.backgroundColor = dominantColor.makeUIColor()
+                self?.colorView.backgroundColor = dominantColor.makePlatformNativeColor()
                 self?.colorLabel.text = "getColor R\(dominantColor.r) G\(dominantColor.g) B\(dominantColor.b)"
             }
         }

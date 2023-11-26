@@ -17,7 +17,19 @@
 //  Sven Woltmann - for the fast Java Implementation
 //  https://github.com/SvenWoltmann/color-thief-java
 
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
+#if canImport(UIKit)
+public typealias PlatformNativeImage = UIImage
+public typealias PlatformNativeColor = UIColor
+#elseif canImport(AppKit)
+public typealias PlatformNativeImage = NSImage
+public typealias PlatformNativeColor = NSColor
+#endif
 
 public class ColorThief {
 
@@ -36,7 +48,7 @@ public class ColorThief {
     ///              color.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the dominant color
-    public static func getColor(from image: UIImage, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> MMCQ.Color? {
+    public static func getColor(from image: PlatformNativeImage, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> MMCQ.Color? {
         guard let palette = getPalette(from: image, colorCount: 5, quality: quality, ignoreWhite: ignoreWhite) else {
             return nil
         }
@@ -57,7 +69,7 @@ public class ColorThief {
     ///              likelihood that colors will be missed.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the palette
-    public static func getPalette(from image: UIImage, colorCount: Int, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> [MMCQ.Color]? {
+    public static func getPalette(from image: PlatformNativeImage, colorCount: Int, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> [MMCQ.Color]? {
         guard let colorMap = getColorMap(from: image, colorCount: colorCount, quality: quality, ignoreWhite: ignoreWhite) else {
             return nil
         }
@@ -77,7 +89,7 @@ public class ColorThief {
     ///              likelihood that colors will be missed.
     ///   - ignoreWhite: if true, white pixels are ignored
     /// - Returns: the color map
-    public static func getColorMap(from image: UIImage, colorCount: Int, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> MMCQ.ColorMap? {
+    public static func getColorMap(from image: PlatformNativeImage, colorCount: Int, quality: Int = defaultQuality, ignoreWhite: Bool = defaultIgnoreWhite) -> MMCQ.ColorMap? {
         guard let pixels = makeBytes(from: image) else {
             return nil
         }
@@ -85,10 +97,16 @@ public class ColorThief {
         return colorMap
     }
 
-    static func makeBytes(from image: UIImage) -> [UInt8]? {
+    static func makeBytes(from image: PlatformNativeImage) -> [UInt8]? {
+        #if canImport(UIKit)
         guard let cgImage = image.cgImage else {
             return nil
         }
+        #elseif canImport(AppKit)
+        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+            return nil
+        }
+        #endif
         if isCompatibleImage(cgImage) {
             return makeBytesFromCompatibleImage(cgImage)
         } else {

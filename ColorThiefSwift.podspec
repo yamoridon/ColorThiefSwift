@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ColorThiefSwift'
-  s.version          = '0.4.1'
+  s.version          = '0.4.2'
   s.summary          = 'Grabs the dominant color or a representative color palette from an image.'
 
 # This description is used to generate tags and improve search results.
@@ -31,6 +31,8 @@ A Swift port of same name libraries of JavaScript and Java.
 
   s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '2.0'
+  s.macos.deployment_target = '10.11'
   s.swift_version = '5.0'
 
   s.source_files = 'ColorThiefSwift/Classes/**/*'
@@ -40,6 +42,9 @@ A Swift port of same name libraries of JavaScript and Java.
   # }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit'
+  s.ios.frameworks = 'UIKit'
+  s.tvos.frameworks = 'UIKit'
+  s.watchos.frameworks = 'UIKit'
+  s.macos.frameworks = 'AppKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end

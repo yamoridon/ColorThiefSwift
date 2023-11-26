@@ -18,7 +18,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 - Xcode 10.2
 - Swift 5
-- iOS 9
+- iOS 9, macOS 10.11, tvOS 9, or watchOS 2
 
 ## Installation
 
@@ -28,7 +28,7 @@ ColorThiefSwift is available through [CocoaPods](http://cocoapods.org). To insta
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ColorThiefSwift', '>= 0.4.1'
+pod 'ColorThiefSwift', '>= 0.4.2'
 ```
 
 ### Carthage
@@ -36,7 +36,7 @@ pod 'ColorThiefSwift', '>= 0.4.1'
 Add this to Cartfile
 
 ```
-github "yamoridon/ColorThiefSwift" ~> 0.4.1
+github "yamoridon/ColorThiefSwift" ~> 0.4.2
 ```
 
 ```

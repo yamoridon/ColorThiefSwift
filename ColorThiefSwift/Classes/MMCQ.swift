@@ -61,6 +61,16 @@ open class MMCQ {
         public func makePlatformNativeColor() -> PlatformNativeColor {
             return PlatformNativeColor(red: CGFloat(r) / CGFloat(255), green: CGFloat(g) / CGFloat(255), blue: CGFloat(b) / CGFloat(255), alpha: CGFloat(1))
         }
+        
+        #if canImport(UIKit)
+        public func makeUIColor() -> UIColor {
+            return makePlatformNativeColor()
+        }
+        #elseif canImport(AppKit)
+        public func makeNSColor() -> NSColor {
+            return makePlatformNativeColor()
+        }
+        #endif
     }
 
     enum ColorChannel {

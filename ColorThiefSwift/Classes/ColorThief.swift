@@ -103,7 +103,20 @@ public class ColorThief {
             return nil
         }
         #elseif canImport(AppKit)
-        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+        guard let rawCGImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+            return nil
+        }
+        let colorSpace = NSColorSpace.sRGB
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil,
+                                width: rawCGImage.width,
+                                height: rawCGImage.height,
+                                bitsPerComponent: rawCGImage.bitsPerComponent,
+                                bytesPerRow: rawCGImage.bytesPerRow,
+                                space: colorSpace.cgColorSpace!,
+                                bitmapInfo: bitmapInfo.rawValue)
+        context?.draw(rawCGImage, in: CGRect(x: 0, y: 0, width: CGFloat(rawCGImage.width), height: CGFloat(rawCGImage.height)))
+        guard let cgImage = context?.makeImage() else {
             return nil
         }
         #endif

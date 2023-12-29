@@ -17,7 +17,11 @@
 //  Sven Woltmann - for the fast Java Implementation
 //  https://github.com/SvenWoltmann/color-thief-java
 
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 /// MMCQ (modified median cut quantization) algorithm from
 /// the Leptonica library (http://www.leptonica.com/).
@@ -54,9 +58,19 @@ open class MMCQ {
             self.b = b
         }
 
-        public func makeUIColor() -> UIColor {
-            return UIColor(red: CGFloat(r) / CGFloat(255), green: CGFloat(g) / CGFloat(255), blue: CGFloat(b) / CGFloat(255), alpha: CGFloat(1))
+        public func makePlatformNativeColor() -> PlatformNativeColor {
+            return PlatformNativeColor(red: CGFloat(r) / CGFloat(255), green: CGFloat(g) / CGFloat(255), blue: CGFloat(b) / CGFloat(255), alpha: CGFloat(1))
         }
+        
+        #if canImport(UIKit)
+        public func makeUIColor() -> UIColor {
+            return makePlatformNativeColor()
+        }
+        #elseif canImport(AppKit)
+        public func makeNSColor() -> NSColor {
+            return makePlatformNativeColor()
+        }
+        #endif
     }
 
     enum ColorChannel {

@@ -1,3 +1,7 @@
+## 0.4.2 (2023-11-26)
+
+* Support macOS, watchOS, and tvOS
+
 ## 0.4.1 (2020-9-21)
 
 * Support SPM

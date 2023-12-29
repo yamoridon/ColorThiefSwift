@@ -1,16 +1,20 @@
 import ColorThiefSwift
+#if canImport(UIKit)
 import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 import XCTest
 
 class Tests: XCTestCase {
 
-    var image: UIImage!
+    var image: PlatformNativeImage!
 
     override func setUp() {
         super.setUp()
         let bundle = Bundle(for: type(of: self))
         let path = bundle.path(forResource: "pen", ofType: "jpg")!
-        image = UIImage(contentsOfFile: path)
+        image = PlatformNativeImage(contentsOfFile: path)
     }
 
     override func tearDown() {
@@ -208,12 +212,25 @@ class Tests: XCTestCase {
     func testSmallWidthImage() {
         let width = 1
         let height = 16
+        
+        #if canImport(UIKit)
         UIGraphicsBeginImageContext(CGSize(width: width, height: height))
         let context = UIGraphicsGetCurrentContext()
         context!.setFillColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         context!.fill(CGRect(x: 0, y: 0, width: width, height: height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        #elseif canImport(AppKit)
+        let image = NSImage(size: NSSize(width: width, height: height))
+        image.lockFocus()
+        guard let context = NSGraphicsContext.current?.cgContext else {
+            XCTFail("Failed to get CGContext")
+            return
+        }
+        NSColor.white.setFill()
+        context.fill(NSRect(x: 0, y: 0, width: width, height: height))
+        image.unlockFocus()
+        #endif
 
         let color = ColorThief.getColor(from: image!, quality: 1, ignoreWhite: false)
         XCTAssertNotNil(color)
@@ -222,12 +239,24 @@ class Tests: XCTestCase {
     func testSmallWidthBlackImage() {
         let width = 1
         let height = 16
+        #if canImport(UIKit)
         UIGraphicsBeginImageContext(CGSize(width: width, height: height))
         let context = UIGraphicsGetCurrentContext()
         context!.setFillColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         context!.fill(CGRect(x: 0, y: 0, width: width, height: height))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        #elseif canImport(AppKit)
+        let image = NSImage(size: NSSize(width: width, height: height))
+        image.lockFocus()
+        guard let context = NSGraphicsContext.current?.cgContext else {
+            XCTFail("Failed to get CGContext")
+            return
+        }
+        NSColor.black.setFill()
+        context.fill(NSRect(x: 0, y: 0, width: width, height: height))
+        image.unlockFocus()
+        #endif
 
         let color = ColorThief.getColor(from: image!, quality: 1, ignoreWhite: false)
         XCTAssertNotNil(color)

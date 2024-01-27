@@ -6,7 +6,7 @@
 //  Copyright © 2019 Kazuki Ohara. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for ColorThiefSwift.
 FOUNDATION_EXPORT double ColorThiefSwiftVersionNumber;

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ColorThiefSwift'
-  s.version          = '0.4.2'
+  s.version          = '0.5.0'
   s.summary          = 'Grabs the dominant color or a representative color palette from an image.'
 
 # This description is used to generate tags and improve search results.
@@ -29,10 +29,10 @@ A Swift port of same name libraries of JavaScript and Java.
   s.source           = { :git => 'https://github.com/yamoridon/ColorThiefSwift.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/yamoridon'
 
-  s.ios.deployment_target = '9.0'
-  s.tvos.deployment_target = '9.0'
-  s.watchos.deployment_target = '2.0'
-  s.macos.deployment_target = '10.11'
+  s.ios.deployment_target = '12.0'
+  s.tvos.deployment_target = '12.0'
+  s.watchos.deployment_target = '4.0'
+  s.macos.deployment_target = '10.13'
   s.swift_version = '5.0'
 
   s.source_files = 'ColorThiefSwift/Classes/**/*'

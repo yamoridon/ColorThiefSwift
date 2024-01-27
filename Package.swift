@@ -4,10 +4,10 @@ import PackageDescription
 let package = Package(
     name: "ColorThiefSwift",
     platforms: [
-        .iOS(.v9),
-        .tvOS(.v9),
-        .watchOS(.v2),
-        .macOS(.v10_11)
+        .iOS(.v12),
+        .tvOS(.v12),
+        .watchOS(.v4),
+        .macOS(.v10_13)
     ],
     products: [
         .library(name: "ColorThiefSwift", targets: ["ColorThiefSwift"])

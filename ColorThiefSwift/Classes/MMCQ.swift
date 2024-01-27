@@ -441,7 +441,7 @@ open class MMCQ {
         pq.sort(by: compareByProduct)
 
         // next set - generate the median cuts using the (npix * vol) sorting.
-        iterate(over: &pq, comparator: compareByProduct, target: maxColors - pq.count, histogram: histogram)
+        iterate(over: &pq, comparator: compareByProduct, target: maxColors, histogram: histogram)
 
         // Reverse to put the highest elements first into the color map
         pq = pq.reversed()
@@ -454,29 +454,31 @@ open class MMCQ {
 
     // Inner function to do the iteration.
     private static func iterate(over queue: inout [VBox], comparator: (VBox, VBox) -> Bool, target: Int, histogram: [Int]) {
-        var color = 1
+        var niters = 0
 
-        for _ in 0 ..< maxIterations {
-            guard let vbox = queue.last else {
-                return
-            }
-
+        while niters < maxIterations {
+            guard let vbox = queue.last else { break }
             if vbox.getCount() == 0 {
                 queue.sort(by: comparator)
+                niters += 1
                 continue
             }
             queue.removeLast()
 
             // do the cut
             let vboxes = applyMedianCut(with: histogram, vbox: vbox)
-            queue.append(vboxes[0])
+            let vbox1 = vboxes[0]
+            queue.append(vbox1)
             if vboxes.count == 2 {
                 queue.append(vboxes[1])
-                color += 1
             }
             queue.sort(by: comparator)
 
-            if color >= target {
+            if queue.count >= target {
+                return
+            }
+            niters += 1
+            if niters > maxIterations {
                 return
             }
         }

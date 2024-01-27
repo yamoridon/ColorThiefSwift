@@ -1,3 +1,7 @@
+## 0.5.0 (2024-01-27)
+
+* Ensure identical color quantization results with those produced by the established Java and JavaScript color-thief libraries.
+
 ## 0.4.2 (2023-11-26)
 
 * Support macOS, watchOS, and tvOS
